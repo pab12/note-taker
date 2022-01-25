@@ -18,27 +18,32 @@ res.json(JSON.parse(data));
 });
 
 
-router.delete('/notes/:id', (req,res) => {
-  let id = req.params.id;
+// router.delete('/notes/:id', (req,res) => {
+//   let id = req.params.id;
 
 
-})
+// })
 
 router.post('/notes', (req, res) => {
+  let randomNum = Math.random().toString(36).substr(2,9);
+  let id = randomNum + Date.now();
+  
 let newNote = {
+  id: id,
   title: req.body.title,
   text: req.body.text
 } ;
 
 
 notes.push(newNote);
+const test = JSON.stringify(notes);
 
-  fs.writeFile('db/db.json', notes, (err) => {
+  fs.writeFile('db/db.json', test, (err) => {
     if (err) {
       return res.json(err);
     }
 
-    res.json(JSON.stringify(notes));
+    
   });
 });
 
